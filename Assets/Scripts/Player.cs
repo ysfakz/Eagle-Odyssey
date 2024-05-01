@@ -10,7 +10,6 @@ public class Player : MonoBehaviour {
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        // Freeze the position in the x and z axes
         rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
     private void Update() {
