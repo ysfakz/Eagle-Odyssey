@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
             Gem gem = FindObjectOfType<Gem>();
             if (gem != null) {
                 gem.OnGemCollected += Gem_OnGemCollected;
+                gem.OnGemDestroyed += Gem_OnGemDestroyed;
                 gemSubscribed = true;
             }
         }
@@ -37,6 +38,11 @@ public class GameManager : MonoBehaviour {
 
     private void Gem_OnGemCollected(object sender, EventArgs e) {
         IncreaseScore();
+        gemSubscribed = false;
+        SoundManager.Instance.PlayScoreSound();
+    }
+
+    private void Gem_OnGemDestroyed(object sender, EventArgs e) {
         gemSubscribed = false;
     }
 
@@ -65,5 +71,9 @@ public class GameManager : MonoBehaviour {
 
     private void IncreaseScore() {
         currentScore++;
+    }
+
+    public int GetCurrentScore() {
+        return currentScore;
     }
 }
