@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static GameManager Instance {get; private set;}
+    private int currentScore;
 
     private enum State {
         WaitingToStart,
@@ -37,5 +38,9 @@ public class GameManager : MonoBehaviour {
             case State.GameOver:
                 break;
         }
+    }
+
+    private void IncreaseScore() {
+        currentScore++;
     }
 }
