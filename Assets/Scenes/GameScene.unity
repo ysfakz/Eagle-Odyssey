@@ -466,14 +466,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gemPrefab: {fileID: 7029462741531210947, guid: aab0850377dbe38479de0af6f15a6d79, type: 3}
-  obstaclePrefab: {fileID: 7029462741531210947, guid: aab0850377dbe38479de0af6f15a6d79, type: 3}
-  powerUpPrefab: {fileID: 7029462741531210947, guid: aab0850377dbe38479de0af6f15a6d79, type: 3}
+  obstaclePrefab: {fileID: 689946364801545225, guid: 9cb16b660d0ae2947a6cd9ee0c89cdd7, type: 3}
+  powerUpPrefab: {fileID: 2304673933316764543, guid: 2c1402677e44710429a8db37283e2f94, type: 3}
   gemSpawnProbability: 0.5
   powerUpSpawnProbability: 0.05
   spawnInterval: 3
   minY: 30
   maxY: 50
-  moveSpeed: 10
+  moveSpeed: 15
   destroyDelay: 12
 --- !u!4 &666854796
 Transform:
