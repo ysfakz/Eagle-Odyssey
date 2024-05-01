@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnObjects());
     }
 
+    /*Function that spawns the gem, obstacle, and power-up objects.*/
     private IEnumerator SpawnObjects()
     {
         while (true)

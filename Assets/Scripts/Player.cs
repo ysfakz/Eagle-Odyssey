@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
+        //Freeze the player's X and Z position.
         rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
     private void Update() {
@@ -17,11 +18,11 @@ public class Player : MonoBehaviour {
         HandleMovement();
     }
 
+    /*Function that takes input and translates it into movement.*/
     private void HandleMovement() {
         float verticalInput = Input.GetAxis("Vertical");
         float moveAmount = verticalInput * moveSpeed * Time.deltaTime;
-        // transform.Translate(0f, moveAmount, 0f);
-        Vector3 newPosition = transform.position + Vector3.up * moveAmount; // Move only along the y-axis
+        Vector3 newPosition = transform.position + Vector3.up * moveAmount;
         rb.MovePosition(newPosition);
     }
 }

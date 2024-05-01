@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
     private int currentScore = 0;
-    private bool gemSubscribed = false; // Flag to track if the Gem has been subscribed to
+    private bool gemSubscribed = false;
 
     private enum State {
         WaitingToStart,
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
         FindGem();
     }
 
+    /*Function that finds the next Gem object and adds listeners to the gem events.*/
     private void FindGem() {
         if (!gemSubscribed) {
             Gem gem = FindObjectOfType<Gem>();
@@ -36,12 +37,14 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /*Function that increases the score, plays the sound, and unsubscribes from the event if scored.*/
     private void Gem_OnGemCollected(object sender, EventArgs e) {
         IncreaseScore();
         gemSubscribed = false;
         SoundManager.Instance.PlayScoreSound();
     }
 
+    /*Function that unsubscribes from the gem events when the gem is destroyed.*/
     private void Gem_OnGemDestroyed(object sender, EventArgs e) {
         gemSubscribed = false;
     }

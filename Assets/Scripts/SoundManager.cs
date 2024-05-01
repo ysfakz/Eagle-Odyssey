@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour {
         Instance = this;
     }
 
+    /*Reusable function that plays a oneshot audio clip.*/
     private void PlaySound(AudioClip audioClip) {
         audioSource.PlayOneShot(audioClip);
     }

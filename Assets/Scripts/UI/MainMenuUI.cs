@@ -18,8 +18,6 @@ public class MainMenuUI : MonoBehaviour {
     private void Update() {
         playButton.onClick.AddListener(() => {
             animator.SetTrigger("Leave");
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            // loadingScreen.gameObject.SetActive(true);
             StartCoroutine(loadScene());
         });
         quitButton.onClick.AddListener(() => {
