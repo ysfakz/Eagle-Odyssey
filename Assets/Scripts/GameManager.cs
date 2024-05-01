@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    public static GameManager Instance {get; private set;}
-    private int currentScore;
+    public static GameManager Instance { get; private set; }
+    private int currentScore = 0;
+    private bool gemSubscribed = false; // Flag to track if the Gem has been subscribed to
 
     private enum State {
         WaitingToStart,
@@ -19,7 +21,28 @@ public class GameManager : MonoBehaviour {
         currentState = State.WaitingToStart;
     }
 
+    private void Start() {
+        FindGem();
+    }
+
+    private void FindGem() {
+        if (!gemSubscribed) {
+            Gem gem = FindObjectOfType<Gem>();
+            if (gem != null) {
+                gem.OnGemCollected += Gem_OnGemCollected;
+                gemSubscribed = true;
+            }
+        }
+    }
+
+    private void Gem_OnGemCollected(object sender, EventArgs e) {
+        IncreaseScore();
+        gemSubscribed = false;
+    }
+
     private void Update() {
+        FindGem();
+        
         switch (currentState) {
             case State.WaitingToStart:
                 // waitingToStartTimer -= Time.deltaTime;

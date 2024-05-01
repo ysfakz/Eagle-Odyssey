@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
     public float destroyDelay = 5f;
 
     private Vector3 spawnPosition = new Vector3(30f, 0f, -3.7f);
-    private Quaternion spawnRotation = Quaternion.Euler(-90f, 0f, 0f); // Rotation around Y-axis by -90 degrees
+    private Quaternion spawnRotation = Quaternion.Euler(-90f, 0f, 0f);
 
     private void Start()
     {
