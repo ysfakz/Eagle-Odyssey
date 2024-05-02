@@ -12,6 +12,7 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField] private Animator animator;
 
     private void Awake() {
+        Time.timeScale = 1f;
         playButton.onClick.AddListener(() => {
             animator.SetTrigger("Leave");
             StartCoroutine(loadScene());

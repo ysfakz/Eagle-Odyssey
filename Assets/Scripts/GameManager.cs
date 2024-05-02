@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour {
     private int currentScore = 0;
     private bool gemSubscribed = false;
     private bool obstacleSubscribed = false;
+    private bool isGamePaused = false;
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameUnpaused;
 
     private enum State {
         WaitingToStart,
@@ -28,24 +31,21 @@ public class GameManager : MonoBehaviour {
 
     private void Update() {
         AddListeners();
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            TogglePauseGame();
+        }
+
         // Debug.Log(currentState);
         
         switch (currentState) {
             case State.WaitingToStart:
-                // waitingToStartTimer -= Time.deltaTime;
-                // if (waitingToStartTimer < 0f) {
-                //     state = State.CountdownToStart;
-                //     OnStateChanged?.Invoke(this, EventArgs.Empty);
-                // }
+                ContinueGame();
                 break;
             case State.GamePlaying:
-                // gamePlayingTimer -= Time.deltaTime;
-                // if (gamePlayingTimer < 0f) {
-                    // currentState = State.GameOver;
-                //     OnStateChanged?.Invoke(this, EventArgs.Empty);
-                // }
                 break;
             case State.GameOver:
+                PauseGame();
                 break;
         }
     }
@@ -120,6 +120,25 @@ public class GameManager : MonoBehaviour {
 
     private void IncreaseScore() {
         currentScore++;
+    }
+
+    public void TogglePauseGame() {
+        isGamePaused = !isGamePaused;
+        if (isGamePaused) {
+            Time.timeScale = 0f;
+            OnGamePaused?.Invoke(this, EventArgs.Empty);
+        } else {
+            Time.timeScale = 1f;
+            OnGameUnpaused?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private void PauseGame() {
+        Time.timeScale = 0f;
+    }
+
+    private void ContinueGame() {
+        Time.timeScale = 1f;
     }
 
     public int GetCurrentScore() {
