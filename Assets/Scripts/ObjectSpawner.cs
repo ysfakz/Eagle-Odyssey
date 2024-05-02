@@ -14,7 +14,8 @@ public class ObjectSpawner : MonoBehaviour {
     public float moveSpeed = 5f;
     public float destroyDelay = 5f;
 
-    private bool isSpawning = false;
+    private bool isActive = false;
+    private Coroutine spawnRoutine;
     private Vector3 spawnPosition = new Vector3(30f, 0f, -3.7f);
     private Quaternion spawnRotation = Quaternion.Euler(-90f, 0f, 0f);
 
@@ -24,20 +25,23 @@ public class ObjectSpawner : MonoBehaviour {
 
     private void Update() {
         //Checks the current game state and if there is a spawner active in order to start spawning.
-        if (GameManager.Instance.IsGamePlaying() && !isSpawning) {
-            StartCoroutine(SpawnObjects());
+        if (GameManager.Instance.IsGamePlaying() && !isActive) {
+            spawnRoutine = StartCoroutine(SpawnObjects());
+            isActive = true;
+        }
+        //Checks the game state and if there is a spawner active in order to stop spawning.
+        if (GameManager.Instance.IsGameOver() && isActive) {
+            StopCoroutine(spawnRoutine);
+            isActive = false;
         }
     }
 
     /*Function that spawns the gem, obstacle, and power-up objects.*/
     private IEnumerator SpawnObjects() {
-        isSpawning = true;
-        while (true)
-        {
+        while (true) {
             // Randomly choose which object to spawn based on probabilities
             GameObject prefabToSpawn = Random.Range(0f, 1f) < gemSpawnProbability ? gemPrefab : obstaclePrefab;
-            if (Random.Range(0f, 1f) < powerUpSpawnProbability)
-            {
+            if (Random.Range(0f, 1f) < powerUpSpawnProbability){
                 prefabToSpawn = powerUpPrefab;
             }
 
@@ -50,8 +54,7 @@ public class ObjectSpawner : MonoBehaviour {
 
             // Move the spawned object forward
             Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
+            if (rb != null) {
                 rb.velocity = Vector3.left * moveSpeed;
             }
 
@@ -61,5 +64,9 @@ public class ObjectSpawner : MonoBehaviour {
             // Wait for the spawn interval before spawning the next object
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    public bool IsActiveCheck() {
+        return isActive = true;
     }
 }

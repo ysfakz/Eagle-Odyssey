@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
     private int currentScore = 0;
     private bool gemSubscribed = false;
+    private bool obstacleSubscribed = false;
 
     private enum State {
         WaitingToStart,
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
     private void Update() {
         AddListeners();
+        // Debug.Log(currentState);
         
         switch (currentState) {
             case State.WaitingToStart:
@@ -48,13 +50,14 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    /*Function that adds listeners to events.*/
+    /*Adds listeners to events.*/
     private void AddListeners() {
         FindGem();
         FindWaitingToStartUI();
+        FindObstacle();
     }
 
-    /*Function that finds the next Gem object and adds listeners to the gem events.*/
+    /*Finds the next Gem object and adds listeners to the gem events.*/
     private void FindGem() {
         if (!gemSubscribed) {
             Gem gem = FindObjectOfType<Gem>();
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    /*Function that finds the waiting to start UI*/
+    /*Finds the waiting to start UI*/
     private void FindWaitingToStartUI() {
         WaitingToStartUI waitingToStartUI = FindObjectOfType<WaitingToStartUI>();
         if (waitingToStartUI != null) {
@@ -74,21 +77,45 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    /*Function that changes the game state to playing.*/
-    private void WaitingToStartUI_OnStartPressed(object sender, EventArgs e) {
-        currentState = State.GamePlaying;
+    private void FindObstacle() {
+        if (!obstacleSubscribed) {
+            Obstacle obstacle = FindObjectOfType<Obstacle>();
+            if (obstacle != null) {
+                obstacle.OnObstacleHit += Obstacle_OnObstacleHit;
+                obstacle.OnObstacleDestroyed += Obstacle_OnObstacleDestroyed;
+                obstacleSubscribed = true;
+            }
+        }
     }
 
-    /*Function that increases the score, plays the sound, and unsubscribes from the event if scored.*/
+    /*Increases the score, plays the sound, and unsubscribes from the event if scored.*/
     private void Gem_OnGemCollected(object sender, EventArgs e) {
         IncreaseScore();
         gemSubscribed = false;
         SoundManager.Instance.PlayScoreSound();
     }
 
-    /*Function that unsubscribes from the gem events when the gem is destroyed.*/
+    /*Unsubscribes from the gem events when the gem is destroyed.*/
     private void Gem_OnGemDestroyed(object sender, EventArgs e) {
         gemSubscribed = false;
+    }
+
+    /*Changes the game state to playing.*/
+    private void WaitingToStartUI_OnStartPressed(object sender, EventArgs e) {
+        currentState = State.GamePlaying;
+    }
+
+    /*Changes the game state and unscubscribes from the event.*/
+    private void Obstacle_OnObstacleHit(object sender, EventArgs e) {
+        SoundManager.Instance.PlayObstacleHitSound();
+        currentState = State.GameOver;
+        obstacleSubscribed = false;
+        ObjectSpawner.Instance.IsActiveCheck();
+    }
+
+    /*Unsubscribes from the event.*/
+    private void Obstacle_OnObstacleDestroyed(object sender, EventArgs e) {
+        obstacleSubscribed = false;
     }
 
     private void IncreaseScore() {

@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager Instance { get; private set; }
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pointScoredSound;
+    [SerializeField] private AudioClip obstacleHitSound;
 
     private void Awake() {
         Instance = this;
@@ -18,5 +19,9 @@ public class SoundManager : MonoBehaviour {
 
     public void PlayScoreSound() {
         PlaySound(pointScoredSound);
+    }
+
+    public void PlayObstacleHitSound() {
+        PlaySound(obstacleHitSound);
     }
 }
