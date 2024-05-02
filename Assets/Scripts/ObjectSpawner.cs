@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
-{
+public class ObjectSpawner : MonoBehaviour {
+    public static ObjectSpawner Instance{ get; private set; }
     public GameObject gemPrefab;
     public GameObject obstaclePrefab;
     public GameObject powerUpPrefab;
@@ -14,17 +14,24 @@ public class Spawner : MonoBehaviour
     public float moveSpeed = 5f;
     public float destroyDelay = 5f;
 
+    private bool isSpawning = false;
     private Vector3 spawnPosition = new Vector3(30f, 0f, -3.7f);
     private Quaternion spawnRotation = Quaternion.Euler(-90f, 0f, 0f);
 
-    private void Start()
-    {
-        StartCoroutine(SpawnObjects());
+    private void Awake() {
+        Instance = this;
+    }
+
+    private void Update() {
+        //Checks the current game state and if there is a spawner active in order to start spawning.
+        if (GameManager.Instance.IsGamePlaying() && !isSpawning) {
+            StartCoroutine(SpawnObjects());
+        }
     }
 
     /*Function that spawns the gem, obstacle, and power-up objects.*/
-    private IEnumerator SpawnObjects()
-    {
+    private IEnumerator SpawnObjects() {
+        isSpawning = true;
         while (true)
         {
             // Randomly choose which object to spawn based on probabilities

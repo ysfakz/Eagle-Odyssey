@@ -22,7 +22,36 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
+        AddListeners();
+    }
+
+    private void Update() {
+        AddListeners();
+        
+        switch (currentState) {
+            case State.WaitingToStart:
+                // waitingToStartTimer -= Time.deltaTime;
+                // if (waitingToStartTimer < 0f) {
+                //     state = State.CountdownToStart;
+                //     OnStateChanged?.Invoke(this, EventArgs.Empty);
+                // }
+                break;
+            case State.GamePlaying:
+                // gamePlayingTimer -= Time.deltaTime;
+                // if (gamePlayingTimer < 0f) {
+                    // currentState = State.GameOver;
+                //     OnStateChanged?.Invoke(this, EventArgs.Empty);
+                // }
+                break;
+            case State.GameOver:
+                break;
+        }
+    }
+
+    /*Function that adds listeners to events.*/
+    private void AddListeners() {
         FindGem();
+        FindWaitingToStartUI();
     }
 
     /*Function that finds the next Gem object and adds listeners to the gem events.*/
@@ -37,6 +66,19 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /*Function that finds the waiting to start UI*/
+    private void FindWaitingToStartUI() {
+        WaitingToStartUI waitingToStartUI = FindObjectOfType<WaitingToStartUI>();
+        if (waitingToStartUI != null) {
+            waitingToStartUI.OnStartPressed += WaitingToStartUI_OnStartPressed;
+        }
+    }
+
+    /*Function that changes the game state to playing.*/
+    private void WaitingToStartUI_OnStartPressed(object sender, EventArgs e) {
+        currentState = State.GamePlaying;
+    }
+
     /*Function that increases the score, plays the sound, and unsubscribes from the event if scored.*/
     private void Gem_OnGemCollected(object sender, EventArgs e) {
         IncreaseScore();
@@ -49,34 +91,23 @@ public class GameManager : MonoBehaviour {
         gemSubscribed = false;
     }
 
-    private void Update() {
-        FindGem();
-        
-        switch (currentState) {
-            case State.WaitingToStart:
-                // waitingToStartTimer -= Time.deltaTime;
-                // if (waitingToStartTimer < 0f) {
-                //     state = State.CountdownToStart;
-                //     OnStateChanged?.Invoke(this, EventArgs.Empty);
-                // }
-                break;
-            case State.GamePlaying:
-                // gamePlayingTimer -= Time.deltaTime;
-                // if (gamePlayingTimer < 0f) {
-                //     state = State.GameOver;
-                //     OnStateChanged?.Invoke(this, EventArgs.Empty);
-                // }
-                break;
-            case State.GameOver:
-                break;
-        }
-    }
-
     private void IncreaseScore() {
         currentScore++;
     }
 
     public int GetCurrentScore() {
         return currentScore;
+    }
+
+    public bool IsWaitingToStart() {
+        return currentState == State.WaitingToStart;
+    }
+
+    public bool IsGamePlaying() {
+        return currentState == State.GamePlaying;
+    }
+
+    public bool IsGameOver() {
+        return currentState == State.GameOver;
     }
 }
