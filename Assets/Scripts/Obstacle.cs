@@ -12,7 +12,6 @@ public class Obstacle : MonoBehaviour
     private void OnTriggerEnter(Collider collision) {
         if (collision.CompareTag("Player")){
             OnObstacleHit?.Invoke(this, EventArgs.Empty);
-            // Destroy(gameObject);
         }    
     }
 

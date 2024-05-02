@@ -13,7 +13,7 @@ public class WaitingToStartUI : MonoBehaviour {
         }
     }
 
-    /*Function that checks for any input.*/
+    /*Checks for any input.*/
     private bool IsInput() {
         if (Input.anyKeyDown) {
             return true;

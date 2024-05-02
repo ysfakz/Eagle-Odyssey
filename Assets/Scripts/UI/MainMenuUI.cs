@@ -12,10 +12,6 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField] private Animator animator;
 
     private void Awake() {
-        loadingScreen.gameObject.SetActive(false);
-    }
-
-    private void Update() {
         playButton.onClick.AddListener(() => {
             animator.SetTrigger("Leave");
             StartCoroutine(loadScene());
@@ -25,6 +21,11 @@ public class MainMenuUI : MonoBehaviour {
         });
     }
 
+    private void Start() {
+        loadingScreen.gameObject.SetActive(false);
+    }
+
+    /*Shows a loading screen and loads the game scene.*/
     public IEnumerator loadScene() {
         yield return new WaitForSeconds(1);
         loadingScreen.gameObject.SetActive(true);
