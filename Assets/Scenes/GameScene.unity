@@ -1532,6 +1532,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 50
   rb: {fileID: 407761229}
+  playerModel: {fileID: 6427259335707391996}
+  rotationSpeed: 6
 --- !u!65 &407761228
 BoxCollider:
   m_ObjectHideFlags: 0

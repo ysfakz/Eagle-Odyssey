@@ -8,6 +8,9 @@ public class Player : MonoBehaviour {
 
     [SerializeField] private float moveSpeed = 50f;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform playerModel;
+    [SerializeField] private float rotationSpeed = 6f;
+    private Quaternion targetRotation;
 
     private void Awake() {
         Instance = this;
@@ -42,6 +45,9 @@ public class Player : MonoBehaviour {
         float moveAmount = verticalInput * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + Vector3.up * moveAmount;
         rb.MovePosition(newPosition);
+
+        Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, playerModel.rotation.eulerAngles.y, playerModel.rotation.eulerAngles.z);
+        playerModel.rotation = Quaternion.Lerp(playerModel.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void PauseSound() {
