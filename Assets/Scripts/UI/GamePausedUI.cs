@@ -8,9 +8,11 @@ using UnityEngine.UI;
 public class GamePausedUI : MonoBehaviour {
 
     [SerializeField] private Transform gamePausedScreen;
+    [SerializeField] private Transform helpScreen;
+    [SerializeField] private Transform optionsScreen;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button menuButton;
-    [SerializeField] private Button controlsButton;
+    [SerializeField] private Button helpButton;
     [SerializeField] private Button optionsButton;
 
     private void Awake() {
@@ -21,11 +23,11 @@ public class GamePausedUI : MonoBehaviour {
         menuButton.onClick.AddListener(() => {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         });
-        controlsButton.onClick.AddListener(() => {
-
+        helpButton.onClick.AddListener(() => {
+            helpScreen.gameObject.SetActive(true);
         });
         optionsButton.onClick.AddListener(() => {
-
+            optionsScreen.gameObject.SetActive(true);
         });
     }
 
