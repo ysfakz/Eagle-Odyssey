@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
     private void Update() {
         AddListeners();
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && currentState == State.GamePlaying) {
             TogglePauseGame();
         }
 
