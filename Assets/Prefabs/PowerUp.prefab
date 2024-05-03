@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1793998952242557346}
   - component: {fileID: 2494221168943551380}
   - component: {fileID: 1906842447407091671}
-  - component: {fileID: 2883528538425360394}
   - component: {fileID: 229567425081034539}
   - component: {fileID: 3260201193511272253}
+  - component: {fileID: 4022377423432218925}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: Untagged
@@ -111,30 +111,6 @@ MonoBehaviour:
   endScale: {x: 1.5, y: 1.5, z: 1.5}
   scaleSpeed: 1
   scaleRate: 0.5
---- !u!114 &2883528538425360394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2304673933316764543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAnimated: 0
-  isRotating: 0
-  isFloating: 0
-  isScaling: 0
-  rotationAngle: {x: 0, y: 0, z: 0}
-  rotationSpeed: 0
-  floatSpeed: 0
-  floatRate: 0
-  startScale: {x: 0, y: 0, z: 0}
-  endScale: {x: 0, y: 0, z: 0}
-  scaleSpeed: 0
-  scaleRate: 0
 --- !u!54 &229567425081034539
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,3 +160,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: f5e70b692f804d346a44df961b6ad5a8, type: 3}
+--- !u!114 &4022377423432218925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304673933316764543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a224cd019566fe4abdc086671e2a57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

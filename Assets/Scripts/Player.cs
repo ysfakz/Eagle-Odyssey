@@ -11,11 +11,14 @@ public class Player : MonoBehaviour {
     [SerializeField] private Transform playerModel;
     [SerializeField] private float rotationSpeed = 6f;
     private Quaternion targetRotation;
+    private bool IsPowered = false;
+    private bool powerUpSubscribed = false;
 
     private void Awake() {
         Instance = this;
     }
     private void Start() {
+        FindObstacle();
         rb = GetComponent<Rigidbody>();
         //Freeze the player's X and Z position.
         rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
@@ -25,9 +28,24 @@ public class Player : MonoBehaviour {
     }
     private void Update() {
         HandleMovement();
+        FindObstacle();
+
+        Debug.Log(IsPowered);
 
         if (GameManager.Instance.IsGameOver()) {
             PauseSound();
+        }
+    }
+
+    private void FindObstacle() {
+        if (!powerUpSubscribed) {
+            Obstacle obstacle = FindObjectOfType<Obstacle>();
+            PowerUp powerUp = FindObjectOfType<PowerUp>();
+            if (powerUp != null) {
+                powerUp.OnPowerUpCollected += PowerUp_OnPowerUpCollected;
+                powerUp.OnPowerUpDestroyed += PowerUp_OnPowerUpDestroyed;
+                powerUpSubscribed = true;
+            }
         }
     }
 
@@ -37,6 +55,15 @@ public class Player : MonoBehaviour {
 
     private void GameManager_OnGameUnpaused(object sender, EventArgs e) {
         PlaySound();
+    }
+
+    private void PowerUp_OnPowerUpCollected(object sender, EventArgs e) {
+        powerUpSubscribed = false;
+        IsPowered = true;
+    }
+
+    private void PowerUp_OnPowerUpDestroyed(object sender, EventArgs e) {
+        powerUpSubscribed = false;
     }
 
     /*Function that takes input and translates it into movement.*/

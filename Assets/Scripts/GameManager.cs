@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    /*Finds the waiting to start UI*/
+    /*Finds the waiting to start UI.*/
     private void FindWaitingToStartUI() {
         WaitingToStartUI waitingToStartUI = FindObjectOfType<WaitingToStartUI>();
         if (waitingToStartUI != null) {
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /*Finds the obstacle.*/
     private void FindObstacle() {
         if (!obstacleSubscribed) {
             Obstacle obstacle = FindObjectOfType<Obstacle>();
