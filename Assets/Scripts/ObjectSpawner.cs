@@ -14,6 +14,7 @@ public class ObjectSpawner : MonoBehaviour {
     public float moveSpeed = 5f;
     public float destroyDelay = 5f;
 
+
     private bool isActive = false;
     private Coroutine spawnRoutine;
     private Vector3 spawnPosition = new Vector3(30f, 0f, -3.7f);
