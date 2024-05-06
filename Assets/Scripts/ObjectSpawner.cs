@@ -8,14 +8,11 @@ public class ObjectSpawner : MonoBehaviour {
     public GameObject powerUpPrefab;
     public float gemSpawnProbability = 0.5f;
     public float powerUpSpawnProbability = 0.04f;
-    
     public float spawnInterval = 2f;
     public float minY = 30f;
     public float maxY = 50f;
     public float moveSpeed = 15f;
     public float destroyDelay = 5f;
-
-//commit
     private bool isActive = false;
     private Coroutine spawnRoutine;
     private Vector3 spawnPosition = new Vector3(30f, 0f, -3.7f);

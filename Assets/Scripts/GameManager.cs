@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape) && currentState == State.GamePlaying) {
             TogglePauseGame();
         }
-
-        // Debug.Log(currentState);
         
         switch (currentState) {
             case State.WaitingToStart:

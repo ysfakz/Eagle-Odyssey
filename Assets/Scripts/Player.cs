@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
         }
     }
 
+    /*Finds the first power up object in line.*/
     private void FindPowerUp() {
         if (!powerUpSubscribed) {
             PowerUp powerUp = FindObjectOfType<PowerUp>();
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour {
         PlaySound();
     }
 
+    /*Activates the powered up effects.*/
     private void PowerUp_OnPowerUpCollected(object sender, EventArgs e) {
         powerUpSubscribed = false;
         isPowered = true;
@@ -89,10 +91,12 @@ public class Player : MonoBehaviour {
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
     }
 
+    /*Activates the powered up timer.*/
     private void PoweredUp() {
         poweredUpTimer += Time.deltaTime;
     }
 
+    /*Deactives the power up effects when the time runs out.*/
     private void PoweredDown() {
        if (poweredUpTimer >= poweredUpTimerMax) {
             isPowered = false;
