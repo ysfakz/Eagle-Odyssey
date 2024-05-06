@@ -8,38 +8,45 @@ public class Player : MonoBehaviour {
 
     [SerializeField] private float moveSpeed = 50f;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Transform playerModel;
     [SerializeField] private float rotationSpeed = 6f;
-    private Quaternion targetRotation;
-    private bool IsPowered = false;
+    [SerializeField] private Transform defaultModel;
+    [SerializeField] private Transform poweredModel;
+    [SerializeField] private AudioClip powerUpSound;
+    private bool isPowered = false;
     private bool powerUpSubscribed = false;
+    private float poweredUpTimer;
+    private float poweredUpTimerMax = 10f;
 
     private void Awake() {
         Instance = this;
     }
     private void Start() {
-        FindObstacle();
+        FindPowerUp();
         rb = GetComponent<Rigidbody>();
         //Freeze the player's X and Z position.
         rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
         GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
         GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
+
+        defaultModel.gameObject.SetActive(true);
+        poweredModel.gameObject.SetActive(false);
     }
     private void Update() {
         HandleMovement();
-        FindObstacle();
-
-        Debug.Log(IsPowered);
+        FindPowerUp();
+        PoweredDown();
 
         if (GameManager.Instance.IsGameOver()) {
             PauseSound();
         }
+        if (isPowered) {
+            PoweredUp();
+        }
     }
 
-    private void FindObstacle() {
+    private void FindPowerUp() {
         if (!powerUpSubscribed) {
-            Obstacle obstacle = FindObjectOfType<Obstacle>();
             PowerUp powerUp = FindObjectOfType<PowerUp>();
             if (powerUp != null) {
                 powerUp.OnPowerUpCollected += PowerUp_OnPowerUpCollected;
@@ -59,7 +66,12 @@ public class Player : MonoBehaviour {
 
     private void PowerUp_OnPowerUpCollected(object sender, EventArgs e) {
         powerUpSubscribed = false;
-        IsPowered = true;
+        isPowered = true;
+        poweredUpTimer = 0f;
+        FindObjectOfType<AudioSource>().PlayOneShot(powerUpSound);
+
+        defaultModel.gameObject.SetActive(false);
+        poweredModel.gameObject.SetActive(true);
     }
 
     private void PowerUp_OnPowerUpDestroyed(object sender, EventArgs e) {
@@ -73,8 +85,23 @@ public class Player : MonoBehaviour {
         Vector3 newPosition = transform.position + Vector3.up * moveAmount;
         rb.MovePosition(newPosition);
 
-        Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, playerModel.rotation.eulerAngles.y, playerModel.rotation.eulerAngles.z);
-        playerModel.rotation = Quaternion.Lerp(playerModel.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
+    }
+
+    private void PoweredUp() {
+        poweredUpTimer += Time.deltaTime;
+    }
+
+    private void PoweredDown() {
+       if (poweredUpTimer >= poweredUpTimerMax) {
+            isPowered = false;
+            powerUpSubscribed = false;
+            poweredUpTimer = 0f;
+
+            defaultModel.gameObject.SetActive(true);
+            poweredModel.gameObject.SetActive(false);
+        } 
     }
 
     private void PauseSound() {
@@ -83,5 +110,9 @@ public class Player : MonoBehaviour {
 
     private void PlaySound() {
         GetComponent<AudioSource>().Play();
+    }
+
+    public bool IsPowered() {
+        return isPowered == true;
     }
 }

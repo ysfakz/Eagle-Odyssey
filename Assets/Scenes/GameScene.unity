@@ -1532,8 +1532,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 50
   rb: {fileID: 407761229}
-  playerModel: {fileID: 6427259335707391996}
   rotationSpeed: 6
+  defaultModel: {fileID: 6427259335707391996}
+  poweredModel: {fileID: 4035234517303552}
+  powerUpSound: {fileID: 8300000, guid: 23ecd23bc2bd9bc43a357ec0776565b8, type: 3}
 --- !u!65 &407761228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2420,7 +2422,7 @@ MonoBehaviour:
   powerUpPrefab: {fileID: 2304673933316764543, guid: 2c1402677e44710429a8db37283e2f94, type: 3}
   gemSpawnProbability: 0.5
   powerUpSpawnProbability: 0.05
-  spawnInterval: 3
+  spawnInterval: 2
   minY: 30
   maxY: 50
   moveSpeed: 15
@@ -6195,7 +6197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1585753211321460
 GameObject:
   m_ObjectHideFlags: 0

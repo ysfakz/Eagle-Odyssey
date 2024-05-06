@@ -7,11 +7,12 @@ public class ObjectSpawner : MonoBehaviour {
     public GameObject obstaclePrefab;
     public GameObject powerUpPrefab;
     public float gemSpawnProbability = 0.5f;
-    public float powerUpSpawnProbability = 0.05f;
+    public float powerUpSpawnProbability = 0.04f;
+    
     public float spawnInterval = 2f;
     public float minY = 30f;
     public float maxY = 50f;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 15f;
     public float destroyDelay = 5f;
 
     private bool isActive = false;
