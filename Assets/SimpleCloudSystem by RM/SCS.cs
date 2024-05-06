@@ -17,13 +17,7 @@ public class SCS : MonoBehaviour {
 		if (!Player)
 			return;
 
-		// gameObject.transform.position = Player.transform.position;
-		// transform.Rotate(0,Time.deltaTime*CloudsSpeed ,0); 
-
-        float verticalMovement = Player.position.y - previousPlayerPosition.y;
-        transform.Translate(0f, -verticalMovement, 0f);
-        transform.Rotate(0, Time.deltaTime * CloudsSpeed, 0);
-        previousPlayerPosition = Player.position;
+		transform.Rotate(0,Time.deltaTime*CloudsSpeed ,0); 
 	}
 
 }
