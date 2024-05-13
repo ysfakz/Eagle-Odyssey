@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     private bool gemSubscribed = false;
     private bool obstacleSubscribed = false;
     private bool isGamePaused = false;
+    private const string HIGH_SCORE = "HighScore";
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
 
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour {
         currentState = State.GameOver;
         obstacleSubscribed = false;
         ObjectSpawner.Instance.IsActiveCheck();
+        UpdateHighScore();
     }
 
     /*Unsubscribes from the event.*/
@@ -119,6 +121,12 @@ public class GameManager : MonoBehaviour {
 
     private void IncreaseScore() {
         currentScore++;
+    }
+
+    private void UpdateHighScore() {
+        if (currentScore > PlayerPrefs.GetInt(HIGH_SCORE, 0)) {
+            PlayerPrefs.SetInt(HIGH_SCORE, currentScore);
+        }
     }
 
     public void TogglePauseGame() {
