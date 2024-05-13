@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class GameOverUI : MonoBehaviour {
     [SerializeField] private Transform gameOverScreen;
     [SerializeField] private Button playAgainButton;
     [SerializeField] private Button menuButton;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     private void Awake() {
         playAgainButton.onClick.AddListener(() => {
@@ -30,6 +32,8 @@ public class GameOverUI : MonoBehaviour {
         } else {
             Hide();
         }
+
+        scoreText.text = "Your Score: " + GameManager.Instance.GetCurrentScore();
     }
 
     private void Show() {
