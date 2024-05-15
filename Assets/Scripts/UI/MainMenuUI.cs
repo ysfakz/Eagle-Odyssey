@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class MainMenuUI : MonoBehaviour {
 
     [SerializeField] private Button playButton;
+    [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Transform loadingScreen;
+    [SerializeField] private Transform optionsScreen;
     [SerializeField] private Animator animator;
 
     private void Awake() {
@@ -17,6 +19,9 @@ public class MainMenuUI : MonoBehaviour {
             animator.SetTrigger("Leave");
             StartCoroutine(loadScene());
         });
+        optionsButton.onClick.AddListener(() => {
+            optionsScreen.gameObject.SetActive(true);
+        });
         quitButton.onClick.AddListener(() => {
             Application.Quit();
         });
@@ -24,6 +29,7 @@ public class MainMenuUI : MonoBehaviour {
 
     private void Start() {
         loadingScreen.gameObject.SetActive(false);
+        optionsScreen.gameObject.SetActive(false);
     }
 
     /*Shows a loading screen and loads the game scene.*/

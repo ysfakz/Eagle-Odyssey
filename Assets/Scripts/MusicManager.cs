@@ -8,13 +8,21 @@ public class MusicManager : MonoBehaviour {
     public static MusicManager Instance { get; private set;}
     [SerializeField] private AudioSource audioSource;
     private OptionsUI optionsUI;
+    private MainMenuOptionsUI mainMenuOptionsUI;
     private const string volume = "MUSIC_VOLUME";
 
     private void Awake() {
         Instance = this;
 
         optionsUI = FindObjectOfType<OptionsUI>();
-        optionsUI.OnVolumeChanged += OptionsUI_OnVolumeChanged;
+        if (optionsUI != null) {
+            optionsUI.OnVolumeChanged += OptionsUI_OnVolumeChanged;
+        }
+        mainMenuOptionsUI = FindObjectOfType<MainMenuOptionsUI>();
+        if (mainMenuOptionsUI != null) {
+            mainMenuOptionsUI.OnVolumeChanged += MainMenuOptionsUI_OnVolumeChanged;
+        }
+        
     }
 
     private void Start() {
@@ -29,6 +37,14 @@ public class MusicManager : MonoBehaviour {
     private void OptionsUI_OnVolumeChanged(object sender, EventArgs e) {
         if (optionsUI != null) {
             audioSource.volume = FindObjectOfType<OptionsUI>().GetMusicVolume();
+            Save();
+        }
+        
+    }
+
+    private void MainMenuOptionsUI_OnVolumeChanged(object sender, EventArgs e) {
+        if (mainMenuOptionsUI != null) {
+            audioSource.volume = FindObjectOfType<MainMenuOptionsUI>().GetMusicVolume();
             Save();
         }
         
