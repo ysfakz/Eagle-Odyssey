@@ -119,4 +119,8 @@ public class Player : MonoBehaviour {
     public bool IsPowered() {
         return isPowered == true;
     }
+
+    public float GetPoweredUpTimerNormalized() {
+        return 1 - (poweredUpTimer / poweredUpTimerMax);
+    }
 }
