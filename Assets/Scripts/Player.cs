@@ -91,8 +91,10 @@ public class Player : MonoBehaviour {
         newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
         rb.MovePosition(newPosition);
 
-        Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
+        if (!(newPosition.y <= minY && verticalInput < 0) && !(newPosition.y >= maxY && verticalInput > 0)) {
+            Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 
     /*Activates the powered up timer.*/
