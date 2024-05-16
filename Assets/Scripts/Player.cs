@@ -85,6 +85,10 @@ public class Player : MonoBehaviour {
         float verticalInput = Input.GetAxis("Vertical");
         float moveAmount = verticalInput * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + Vector3.up * moveAmount;
+
+        float minY = 25f;
+        float maxY = 55f;
+        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
         rb.MovePosition(newPosition);
 
         Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
