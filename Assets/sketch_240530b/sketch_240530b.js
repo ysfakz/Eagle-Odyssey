@@ -1,6 +1,7 @@
 let classifier;
   // Model URL
   let imageModelURL = './my_model/';
+  let ws = new WebSocket('ws://localhost:8080');
   
   // Video
   let video;
@@ -55,6 +56,7 @@ let classifier;
     // The results are in an array ordered by confidence.
     // console.log(results[0]);
     label = results[0].label;
+    ws.send(label);
     // Classifiy again!
     classifyVideo();
   }
