@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     private bool powerUpSubscribed = false;
     private float poweredUpTimer;
     private float poweredUpTimerMax = 10f;
+    private float verticalInput = 0f;
 
     private void Awake() {
         Instance = this;
@@ -82,7 +83,9 @@ public class Player : MonoBehaviour {
 
     /*Function that takes input and translates it into movement.*/
     private void HandleMovement() {
-        float verticalInput = Input.GetAxis("Vertical");
+        //Comment and de-comment this line of code depending on if you want to use keyboard or webcam control.
+        // verticalInput = Input.GetAxis("Vertical");
+
         float moveAmount = verticalInput * moveSpeed * Time.deltaTime;
         Vector3 newPosition = transform.position + Vector3.up * moveAmount;
 
@@ -132,5 +135,9 @@ public class Player : MonoBehaviour {
 
     public float GetPoweredUpTimerNormalized() {
         return 1 - (poweredUpTimer / poweredUpTimerMax);
+    }
+
+    public void SetVerticalInput(float input) {
+        verticalInput = input;
     }
 }

@@ -7,6 +7,8 @@ using NativeWebSocket;
 
 public class Connection : MonoBehaviour
 {
+
+  public string messageWB;
   WebSocket websocket;
 
   // Start is called before the first frame update
@@ -36,7 +38,8 @@ public class Connection : MonoBehaviour
 
       // getting the message as a string
       var message = System.Text.Encoding.UTF8.GetString(bytes);
-      Debug.Log("OnMessage! " + message);
+      messageWB = message;
+      // Debug.Log("OnMessage! " + message);
     };
 
     // Keep sending messages at every 0.3s
@@ -50,6 +53,22 @@ public class Connection : MonoBehaviour
   {
     #if !UNITY_WEBGL || UNITY_EDITOR
       websocket.DispatchMessageQueue();
+
+      if (!string.IsNullOrEmpty(messageWB)) {
+        Debug.Log(messageWB);
+
+        switch (messageWB) {
+          case "Neutral":
+            Player.Instance.SetVerticalInput(0f);
+            break;
+          case "Up":
+            Player.Instance.SetVerticalInput(1f);
+            break;
+          case "Down":
+            Player.Instance.SetVerticalInput(-1f);
+            break;
+        }
+      }
     #endif
   }
 
