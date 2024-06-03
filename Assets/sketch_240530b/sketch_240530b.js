@@ -1,6 +1,7 @@
 let classifier;
-  // Model URL
-  let imageModelURL = './my_model/';
+  // Comment model url based on which model to use.
+  //let imageModelURL = './my_model/';
+  let imageModelURL = './my_model_2/';
   let ws = new WebSocket('ws://localhost:8080');
   
   // Video
