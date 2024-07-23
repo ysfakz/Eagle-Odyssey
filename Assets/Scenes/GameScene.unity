@@ -2052,7 +2052,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 13}
+  m_AnchoredPosition: {x: 0, y: -24}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422233314
@@ -2075,7 +2075,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use 'W' and 'S' to move up and down.
+  m_text: 'Use ''W'' and ''S'' or the arrow keys
+
+    to move up and down.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0fa974280640f646839c8df949398f8, type: 2}
   m_sharedMaterial: {fileID: -8527875722688943788, guid: f0fa974280640f646839c8df949398f8, type: 2}
@@ -4604,7 +4606,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 148}
+  m_AnchoredPosition: {x: 0, y: 137}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234271705
@@ -4629,7 +4631,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'ESC - Pause
 
-    Arrow Keys - Up & Down'
+    Arrow Keys - Up & Down
+
+    W & S - Up & Down'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0fa974280640f646839c8df949398f8, type: 2}
   m_sharedMaterial: {fileID: -8527875722688943788, guid: f0fa974280640f646839c8df949398f8, type: 2}
@@ -5178,7 +5182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -76}
+  m_AnchoredPosition: {x: 0, y: -133}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1554563014
