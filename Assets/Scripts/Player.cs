@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public static Player Instance { get; private set; }
 
-    [SerializeField] private float moveSpeed = 50f;
+    [SerializeField] private float moveSpeed = 130f;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float rotationSpeed = 6f;
     [SerializeField] private Transform defaultModel;
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour {
         if (newPosition.y <= minY || newPosition.y >= maxY) {
             transform.rotation = Quaternion.Lerp(transform.rotation, neutralRotation, rotationSpeed * Time.deltaTime);
         } else {
-            Quaternion targetRotation = Quaternion.Euler(verticalInput * -20f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            Quaternion targetRotation = Quaternion.Euler(verticalInput * -15f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
