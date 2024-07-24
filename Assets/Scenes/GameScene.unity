@@ -1964,7 +1964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d93b9627ecdcc44ab5251d0a1d018d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 170
+  moveSpeed: 50
   rb: {fileID: 407761229}
   rotationSpeed: 6
   defaultModel: {fileID: 6427259335707391996}
